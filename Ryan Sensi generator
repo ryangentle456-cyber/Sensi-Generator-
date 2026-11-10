@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ryan Sensi Generator</title>
+
+<style>
+body {
+  background: #101010;
+  color: white;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 20px;
+}
+.container {
+  max-width: 430px;
+  margin: auto;
+  background: #202020;
+  padding: 22px;
+  border-radius: 15px;
+}
+h1 { color: #00ff88; }
+input, select, button {
+  width: 100%;
+  padding: 13px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: none;
+  box-sizing: border-box;
+}
+button {
+  background: #00ff88;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+}
+.result {
+  background: #303030;
+  padding: 15px;
+  margin-top: 15px;
+  border-radius: 10px;
+  display: none;
+}
+.setting {
+  display: flex;
+  justify-content: space-between;
+  padding: 9px;
+  border-bottom: 1px solid #444;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<h1>🔥 RYAN SENSI GENERATOR</h1>
+<p>Generate your Free Fire sensitivity</p>
+
+<input id="phone" placeholder="Enter your phone model">
+
+<select id="device">
+<option value="high">High-end device</option>
+<option value="medium" selected>Medium device</option>
+<option value="low">Low-end device</option>
+</select>
+
+<select id="style">
+<option value="balanced">Balanced</option>
+<option value="fast">Fast movement</option>
+<option value="steady">Steady aim</option>
+</select>
+
+<button onclick="generate()">GENERATE SENSI</button>
+
+<div class="result" id="result">
+<h2>YOUR SENSITIVITY</h2>
+<div id="settings"></div>
+<button onclick="copySensi()">COPY SENSI</button>
+</div>
+
+</div>
+
+<script>
+let generatedText = "";
+
+function generate() {
+  const phone = document.getElementById("phone").value.trim();
+  const device = document.getElementById("device").value;
+  const style = document.getElementById("style").value;
+
+  if (!phone) {
+    alert("Please enter your phone model!");
+    return;
+  }
+
+  const base = {
+    high:  [185, 175, 165, 155, 90, 145],
+    medium:[180, 170, 155, 145, 85, 135],
+    low:   [170, 155, 145, 130, 75, 120]
+  };
+
+  const names = [
+    "General", "Red Dot", "2x Scope",
+    "4x Scope", "Sniper Scope", "Free Look"
+  ];
+
+  let values = base[device].map((v, i) => {
+    let adjustment = style === "fast" ? 8 :
+                     style === "steady" ? -8 : 0;
+    return Math.max(0, Math.min(200, v + adjustment));
+  });
+
+  generatedText = "RYAN SENSI GENERATOR\nPhone: " + phone + "\n";
+
+  document.getElementById("settings").innerHTML =
+    names.map((name, i) => {
+      generatedText += name + ": " + values[i] + "\n";
+      return `<div class="setting">
+        <span>${name}</span>
+        <strong>${values[i]}</strong>
+      </div>`;
+    }).join("");
+
+  document.getElementById("result").style.display = "block";
+}
+
+function copySensi() {
+  navigator.clipboard.writeText(generatedText)
+    .then(() => alert("Sensitivity copied!"))
+    .catch(() => alert("Please select and copy the settings."));
+}
+</script>
+</body>
+</html>
+    

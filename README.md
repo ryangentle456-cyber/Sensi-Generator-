@@ -1,2 +1,2 @@
 # Sensi-Generator-
-Free fire sensi Generator 
+ryan sensi Generator 

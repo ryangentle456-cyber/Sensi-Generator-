@@ -1,137 +1,297 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ryan Sensi Generator</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Fire Sensi Generator</title>
+  <style>
+    :root {
+      --bg-color: #0f111a;
+      --card-bg: #1a1d2d;
+      --accent: #ff5722;
+      --accent-hover: #e64a19;
+      --text-main: #ffffff;
+      --text-muted: #a0a6b8;
+      --border: #2c3149;
+    }
 
-<style>
-body {
-  background: #101010;
-  color: white;
-  font-family: Arial, sans-serif;
-  text-align: center;
-  padding: 20px;
-}
-.container {
-  max-width: 430px;
-  margin: auto;
-  background: #202020;
-  padding: 22px;
-  border-radius: 15px;
-}
-h1 { color: #00ff88; }
-input, select, button {
-  width: 100%;
-  padding: 13px;
-  margin: 10px 0;
-  border-radius: 8px;
-  border: none;
-  box-sizing: border-box;
-}
-button {
-  background: #00ff88;
-  color: black;
-  font-weight: bold;
-  cursor: pointer;
-}
-.result {
-  background: #303030;
-  padding: 15px;
-  margin-top: 15px;
-  border-radius: 10px;
-  display: none;
-}
-.setting {
-  display: flex;
-  justify-content: space-between;
-  padding: 9px;
-  border-bottom: 1px solid #444;
-}
-</style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      width: 100%;
+      max-width: 480px;
+      padding: 28px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      text-align: center;
+      margin-bottom: 6px;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    p.subtitle {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 24px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    select, input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      background-color: var(--bg-color);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text-main);
+      font-size: 0.95rem;
+      outline: none;
+    }
+
+    select:focus, input[type="text"]:focus {
+      border-color: var(--accent);
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      background-color: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 8px;
+    }
+
+    button:hover {
+      background-color: var(--accent-hover);
+    }
+
+    .results {
+      margin-top: 24px;
+      display: none;
+      border-top: 1px solid var(--border);
+      padding-top: 20px;
+    }
+
+    .stat-row {
+      margin-bottom: 14px;
+    }
+
+    .stat-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+    }
+
+    .stat-value {
+      font-weight: bold;
+      color: var(--accent);
+    }
+
+    .bar-bg {
+      width: 100%;
+      height: 8px;
+      background-color: var(--bg-color);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      background-color: var(--accent);
+      width: 0%;
+      transition: width 0.4s ease;
+    }
+
+    .copy-btn {
+      background-color: #2c3149;
+      margin-top: 12px;
+      font-size: 0.9rem;
+      padding: 10px;
+    }
+
+    .copy-btn:hover {
+      background-color: #3a405e;
+    }
+  </style>
 </head>
-
 <body>
-<div class="container">
 
-<h1>🔥 RYAN SENSI GENERATOR</h1>
-<p>Generate your Free Fire sensitivity</p>
+  <div class="container">
+    <h1>FF Sensi Generator</h1>
+    <p class="subtitle">Get custom 0–200 sensitivity settings for your device</p>
 
-<input id="phone" placeholder="Enter your phone model">
+    <div class="form-group">
+      <label for="device">Device Name (Optional)</label>
+      <input type="text" id="device" placeholder="e.g., Redmi Note 12, iPhone 13, Poco X5">
+    </div>
 
-<select id="device">
-<option value="high">High-end device</option>
-<option value="medium" selected>Medium device</option>
-<option value="low">Low-end device</option>
-</select>
+    <div class="form-group">
+      <label for="ram">Device RAM</label>
+      <select id="ram">
+        <option value="low">2GB – 3GB (Low-End)</option>
+        <option value="mid" selected>4GB – 6GB (Mid-Range)</option>
+        <option value="high">8GB+ / Flagship</option>
+      </select>
+    </div>
 
-<select id="style">
-<option value="balanced">Balanced</option>
-<option value="fast">Fast movement</option>
-<option value="steady">Steady aim</option>
-</select>
+    <div class="form-group">
+      <label for="playstyle">Playstyle</label>
+      <select id="playstyle">
+        <option value="balanced">Balanced (All-Rounder)</option>
+        <option value="onetap">One-Tap Headshot (High Drag)</option>
+        <option value="spray">SMG / AR Spray Control</option>
+      </select>
+    </div>
 
-<button onclick="generate()">GENERATE SENSI</button>
+    <button onclick="generateSensi()">Generate Sensitivity</button>
 
-<div class="result" id="result">
-<h2>YOUR SENSITIVITY</h2>
-<div id="settings"></div>
-<button onclick="copySensi()">COPY SENSI</button>
-</div>
+    <div class="results" id="results">
+      <div id="stats-container"></div>
+      <button class="copy-btn" onclick="copySettings()" id="copyBtn">Copy Settings</button>
+    </div>
+  </div>
 
-</div>
+  <script>
+    let currentSettings = {};
 
-<script>
-let generatedText = "";
+    function clamp(val) {
+      return Math.min(200, Math.max(0, Math.round(val)));
+    }
 
-function generate() {
-  const phone = document.getElementById("phone").value.trim();
-  const device = document.getElementById("device").value;
-  const style = document.getElementById("style").value;
+    // Simple hash so typing the same device name gives consistent variations
+    function getDeviceOffset(name) {
+      if (!name) return 0;
+      let hash = 0;
+      for (let i = 0; i < name.length; i++) {
+        hash = name.charCodeAt(i) + ((hash << 5) - hash);
+      }
+      return (hash % 11) - 5; // Returns a number between -5 and +5
+    }
 
-  if (!phone) {
-    alert("Please enter your phone model!");
-    return;
-  }
+    function generateSensi() {
+      const device = document.getElementById('device').value.trim();
+      const ram = document.getElementById('ram').value;
+      const style = document.getElementById('playstyle').value;
+      const offset = getDeviceOffset(device);
 
-  const base = {
-    high:  [185, 175, 165, 155, 90, 145],
-    medium:[180, 170, 155, 145, 85, 135],
-    low:   [170, 155, 145, 130, 75, 120]
-  };
+      // Base values (0 - 200 scale)
+      let general = 175;
+      let redDot = 165;
+      let scope2x = 155;
+      let scope4x = 145;
+      let sniper = 90;
+      let freeLook = 130;
 
-  const names = [
-    "General", "Red Dot", "2x Scope",
-    "4x Scope", "Sniper Scope", "Free Look"
-  ];
+      // Adjust for RAM (Lower RAM devices usually have lower touch sampling rates)
+      if (ram === 'low') {
+        general += 18;
+        redDot += 15;
+        scope2x += 12;
+        scope4x += 10;
+      } else if (ram === 'high') {
+        general -= 10;
+        redDot -= 8;
+        scope2x -= 5;
+        scope4x -= 5;
+      }
 
-  let values = base[device].map((v, i) => {
-    let adjustment = style === "fast" ? 8 :
-                     style === "steady" ? -8 : 0;
-    return Math.max(0, Math.min(200, v + adjustment));
-  });
+      // Adjust for Playstyle
+      if (style === 'onetap') {
+        general += 12;
+        redDot += 15;
+        sniper -= 15;
+      } else if (style === 'spray') {
+        general -= 8;
+        scope2x -= 10;
+        scope4x -= 12;
+      }
 
-  generatedText = "RYAN SENSI GENERATOR\nPhone: " + phone + "\n";
+      currentSettings = {
+        "General": clamp(general + offset),
+        "Red Dot": clamp(redDot + offset),
+        "2x Scope": clamp(scope2x + offset),
+        "4x Scope": clamp(scope4x + offset),
+        "Sniper Scope": clamp(sniper + offset),
+        "Free Look": clamp(freeLook + offset)
+      };
 
-  document.getElementById("settings").innerHTML =
-    names.map((name, i) => {
-      generatedText += name + ": " + values[i] + "\n";
-      return `<div class="setting">
-        <span>${name}</span>
-        <strong>${values[i]}</strong>
-      </div>`;
-    }).join("");
+      renderResults();
+    }
 
-  document.getElementById("result").style.display = "block";
-}
+    function renderResults() {
+      const container = document.getElementById('stats-container');
+      container.innerHTML = '';
 
-function copySensi() {
-  navigator.clipboard.writeText(generatedText)
-    .then(() => alert("Sensitivity copied!"))
-    .catch(() => alert("Please select and copy the settings."));
-}
-</script>
+      for (const [label, value] of Object.entries(currentSettings)) {
+        const percentage = (value / 200) * 100;
+        container.innerHTML += `
+          <div class="stat-row">
+            <div class="stat-header">
+              <span>${label}</span>
+              <span class="stat-value">${value}</span>
+            </div>
+            <div class="bar-bg">
+              <div class="bar-fill" style="width: ${percentage}%"></div>
+            </div>
+          </div>
+        `;
+      }
+
+      document.getElementById('results').style.display = 'block';
+      document.getElementById('copyBtn').innerText = 'Copy Settings';
+    }
+
+    function copySettings() {
+      const device = document.getElementById('device').value.trim() || 'Custom Device';
+      let text = `Free Fire Sensitivity (${device}):\n`;
+      for (const [key, val] of Object.entries(currentSettings)) {
+        text += `- ${key}: ${val}\n`;
+      }
+
+      navigator.clipboard.writeText(text).then(() => {
+        document.getElementById('copyBtn').innerText = 'Copied to Clipboard!';
+      });
+    }
+  </script>
+
 </body>
 </html>
-    
+

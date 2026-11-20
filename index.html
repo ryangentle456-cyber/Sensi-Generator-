@@ -3,113 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sensi AI - Precision Sensitivity Generator</title>
-    <style>
-        :root {
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --primary: #6366f1;
-            --primary-hover: #4f46e5;
-            --text-color: #f8fafc;
-            --text-muted: #94a3b8;
-            --accent: #10b981;
-            --border: #334155;
-        }
+    <title>Pro Sensi Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-        }
+    <div class="container">
+        <header>
+            <h1>Sensi Config Generator</h1>
+            <p>Find your optimal starting sensitivity based on your device specs.</p>
+        </header>
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
+        <div class="card">
+            <div class="form-group">
+                <label for="deviceRam">Device RAM</label>
+                <select id="deviceRam">
+                    <option value="low">2GB - 3GB RAM (Low-End)</option>
+                    <option value="mid" selected>4GB - 6GB RAM (Mid-Range)</option>
+                    <option value="high">8GB+ RAM / Flagship</option>
+                </select>
+            </div>
 
-        .container {
-            width: 100%;
-            max-width: 500px;
-            background: var(--card-bg);
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-            border: 1px solid var(--border);
-            overflow: hidden;
-        }
+            <div class="form-group">
+                <label for="playstyle">Preferred Playstyle</label>
+                <select id="playstyle">
+                    <option value="rusher">Aggressive Rusher (Fast Drag)</option>
+                    <option value="onetap" selected>One-Tap / Precision</option>
+                    <option value="balanced">Balanced All-Rounder</option>
+                </select>
+            </div>
 
-        .header {
-            background: linear-gradient(135deg, var(--primary), #818cf8);
-            padding: 24px;
-            text-align: center;
-        }
+            <button onclick="generateSensi()">Generate Sensitivity</button>
+        </div>
 
-        .header h1 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 6px;
-            color: #ffffff;
-        }
+        <div id="results" class="results-card hidden">
+            <h2>Recommended Settings</h2>
+            <div class="grid">
+                <div class="metric"><span>General:</span> <strong id="valGeneral">--</strong></div>
+                <div class="metric"><span>Red Dot:</span> <strong id="valRedDot">--</strong></div>
+                <div class="metric"><span>2x Scope:</span> <strong id="val2x">--</strong></div>
+                <div class="metric"><span>4x Scope:</span> <strong id="val4x">--</strong></div>
+                <div class="metric"><span>Sniper Scope:</span> <strong id="valSniper">--</strong></div>
+                <div class="metric"><span>Fire Button Size:</span> <strong id="valFireBtn">--</strong></div>
+            </div>
+            <p class="tip">💡 <em>Tip: Test these out in the Training Grounds and tweak by ±5 if your crosshair overshoots!</em></p>
+        </div>
+    </div>
 
-        .header p {
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.85);
-        }
-
-        .content {
-            padding: 24px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        input[type="text"], select {
-            width: 100%;
-            padding: 12px 16px;
-            background: var(--bg-color);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            color: var(--text-color);
-            font-size: 1rem;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-
-        input[type="text"]:focus, select:focus {
-            border-color: var(--primary);
-        }
-
-        .btn {
-            width: 100%;
-            padding: 14px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.2s, transform 0.1s;
-            margin-top: 10px;
-        }
-
-        .btn:hover {
-            background: var
-            
+    <script src="script.js"></script>
+</body>
+</html>
